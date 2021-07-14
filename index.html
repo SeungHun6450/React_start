@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React start</title>
+  <!--배포 시 development를 production으로 바꾼다 -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div> <!-- 결과 : <div id="root"><button>Like</button></div>-->
+    <script type="text/babel">
+      const e = React.createElement;
+
+      // React안의 Component를 상속해온다
+      class LikeButton extends React.Component {
+        // 컴포넌트가 처음 시작되는 부분, 기본적으로 쓰는것으로 생각
+        constructor(props) {
+          super(props);
+          // 바뀔 여지가 있는 부분이 state, 배열로 처리
+          this.state = {
+            liked: false,
+          };
+        }
+
+        render() {
+          // babel 사용
+          // JSX (JS + XML)
+          return <button type="submit" onClick={() => { this.setState({ liked:true })}}>
+              {this.state.liked === true ? 'Liked' : 'Like'}
+            </button>;
+
+          // 구시대 방법
+          // 태그 , HTML속성, 내용
+          // return e('button', {onClick: () => { this.setState({ liked: true }), console.log('clicked')}, type: 'submit'},
+          // this.state.liked === true ? 'Liked' : 'Liked',
+          // );
+          // <button onclick="() => {} console.log('clicked') }" type='submit'">Like</button>
+          // $('button').text('liked')
+        }
+      }
+    </script>
+    <script type="text/babel">
+      // 만든 것을 화면에 반영(rendering) 해준다
+      // ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+
+      // babel 사용
+      ReactDOM.render(<div>
+        <LikeButton />
+        <LikeButton />
+        <LikeButton />
+        <LikeButton />
+        </div>, document.querySelector('#root'));
+    </script>
+  </body>
+</html>
